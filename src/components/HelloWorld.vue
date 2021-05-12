@@ -1,14 +1,53 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <input v-model.number="operand1" />
+    <input v-model.number="operand2" />
+    = {{ result }}
+    <div>
+      <button @click="calcualte('+')">+</button>
+      <button @click="calcualte('-')">-</button>
+      <button @click="calcualte('/')">/</button>
+      <button @click="calcualte('*')">*</button>
+      <button @click="calcualte('%')">%</button>
+      <button @click="calcualte('^')">^</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
+  data: () => ({
+    operand1: 0,
+    operand2: 0,
+    result: 0,
+  }),
   props: {
     msg: String,
+  },
+
+  methods: {
+    calcualte(op) {
+      switch (op) {
+        case "+":
+          this.result = this.operand1 + this.operand2;
+          break;
+        case "-":
+          this.result = this.operand1 - this.operand2;
+          break;
+        case "/":
+          this.result = this.operand1 / this.operand2;
+          break;
+        case "*":
+          this.result = this.operand1 * this.operand2;
+          break;
+        case "%":
+          this.result = this.operand1 % this.operand2;
+          break;
+        case "^":
+          this.result = Math.pow(this.operand1, this.operand2);
+          break;
+      }
+    },
   },
 };
 </script>
