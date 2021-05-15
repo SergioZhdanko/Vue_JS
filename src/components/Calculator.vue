@@ -13,7 +13,7 @@
       {{ error }}
     </div>
     <input type="checkbox" id="checkbox" v-model="isDisplay" />
-    <label for="checkbox"></label>Отобразить экранную клавиатуру
+    <label for="checkbox">Отобразить экранную клавиатуру</label>
     <div class="key-display" v-show="isDisplay">
       <button v-for="digit in digits" :key="digit" @click="addNumber(digit)">
         {{ digit }}
