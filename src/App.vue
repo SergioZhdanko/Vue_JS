@@ -2,7 +2,8 @@
   <div id="app">
     <header :class="[$style.header]">My Personal Cost</header>
     <main>
-      <PaymentForm @add="onDataAdded" />
+      <AddNewRecordButton @click="switchIsDisplay" />
+      <PaymentForm @add="onDataAdded" v-if="isDisplay" />
       <!-- передача в пропсы компонента массива paymentsList : это мv-bind -->
       <PaymentsList :items="paymentsList" />
     </main>
@@ -12,14 +13,17 @@
 <script>
 import PaymentsList from "./components/PaymentsList"; // импорт компонента перечня расходов в главное приложение
 import PaymentForm from "./components/PaymentForm"; // импорт компонента формы в главное приложение
+import AddNewRecordButton from "./components/AddNewRecordButton"; // импорт компонента кнопки добавления в главное приложение
 export default {
   name: "App",
   components: {
     PaymentsList, // регистрация компонента перечня расходов
     PaymentForm, // регистрация компонента формы
+    AddNewRecordButton, // регистрация компонента компонента кнопки добавления
   },
   data() {
     return {
+      isDisplay: false,
       paymentsList: [
         {
           date: "14.05.2021",
@@ -49,6 +53,9 @@ export default {
     onDataAdded(data) {
       this.paymentsList.push(data);
     },
+  },
+  switchIsDisplay() {
+    this.isDisplay = !this.isDisplay;
   },
 };
 </script>
