@@ -2,7 +2,7 @@
   <div id="app">
     <header :class="[$style.header]">My Personal Cost</header>
     <main>
-      <AddNewRecordButton @click="switchIsDisplay" />
+      <AddNewRecordButton @clicked="isDisplay = !isDisplay" />
       <PaymentForm @add="onDataAdded" v-if="isDisplay" />
       <!-- передача в пропсы компонента массива paymentsList : это мv-bind -->
       <PaymentsList :items="paymentsList" />
@@ -54,9 +54,9 @@ export default {
       this.paymentsList.push(data);
     },
   },
-  switchIsDisplay() {
-    this.isDisplay = !this.isDisplay;
-  },
+  // switchIsDisplay() {
+  //   this.isDisplay = !this.isDisplay;
+  // },
 };
 </script>
 
