@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <header :class="[$style.header]">My Personal Cost</header>
     <main>
       <AddNewRecordButton @clicked="isDisplay = !isDisplay" />
@@ -54,21 +54,10 @@ export default {
       this.paymentsList.push(data);
     },
   },
-  // switchIsDisplay() {
-  //   this.isDisplay = !this.isDisplay;
-  // },
 };
 </script>
 
 <style module>
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
 .header {
   color: red;
 }
