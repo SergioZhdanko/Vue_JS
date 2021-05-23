@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
 export default {
   props: {
     // расиширенный вариант записи props
@@ -25,40 +24,12 @@ export default {
       price: 0,
     };
   },
+
   methods: {
-    ...mapMutations(["setPaymentsListData"]),
     save() {
       const { date, category, price } = this;
       this.$emit("add", { date, category, price });
     },
-    fetchData() {
-      return [
-        {
-          date: "14.05.2021",
-          category: "Education",
-          price: 123,
-        },
-        {
-          date: "11.05.2021",
-          category: "Food",
-          price: 456,
-        },
-        {
-          date: "12.05.2021",
-          category: "Fare",
-          price: 112,
-        },
-        {
-          date: "10.05.2021",
-          category: "Housing",
-          price: 101,
-        },
-      ];
-    },
-  },
-  mounted() {
-    // this.$store.commit("setPaymentsListData", this.fetchData());
-    this.setPaymentsListData(this.fetchData());
   },
 };
 </script>
