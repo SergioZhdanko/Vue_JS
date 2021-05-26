@@ -10,13 +10,16 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { mapState } from "vuex";
+// import { mapGetters } from "vuex";
 export default {
-  props: {
-    // расиширенный вариант записи props
-    items: {
-      type: Array,
-    },
-  },
+  // props: {
+  //   // расиширенный вариант записи props
+  //   items: {
+  //     type: Array,
+  //   },
+  // },
   data() {
     return {
       date: "",
@@ -26,11 +29,22 @@ export default {
   },
 
   methods: {
+    ...mapMutations(["setPaymentsListData"]),
+
     save() {
       const { date, category, price } = this;
-      this.$emit("add", { date, category, price });
+      let data = this.myList;
+      // this.$emit("add", { date, category, price });
+      // this.setPaymentsListData([date, category, price]);
+      this.setPaymentsListData([...data, { date, category, price }]);
     },
   },
+  // computed: {
+  //   ...mapGetters(["getPaymentsList"]),
+  // },
+  computed: mapState({
+    myList: (state) => state.paymentList,
+  }),
 };
 </script>
 

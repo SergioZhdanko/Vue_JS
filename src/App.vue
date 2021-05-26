@@ -3,9 +3,8 @@
     <header :class="[$style.header]">My Personal Cost</header>
     <main>
       <AddNewRecordButton @clicked="isDisplay = !isDisplay" />
-      <PaymentForm @add="onDataAdded" v-if="isDisplay" />
-      <!-- передача в пропсы компонента массива paymentsList : это мv-bind -->
-      <PaymentsList :items="paymentsList" />
+      <PaymentForm v-if="isDisplay" />
+      <PaymentsList />
     </main>
   </div>
 </template>
@@ -25,15 +24,14 @@ export default {
   data() {
     return {
       isDisplay: true,
-      paymentsList: [],
     };
   },
 
   methods: {
     ...mapActions(["fetchData"]),
-    onDataAdded(data) {
-      this.paymentsList.push(data);
-    },
+    // onDataAdded(data) {
+    //   this.paymentsList.push(data);
+    // },
   },
   mounted() {
     this.fetchData();

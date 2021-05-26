@@ -1,4 +1,4 @@
-import { reject, resolve } from 'core-js/fn/promise';
+
 import Vue from 'vue'
 import Vuex from  'vuex'
 
@@ -26,7 +26,7 @@ export default new Vuex.Store({
   // для получения данных с сервера и их первоначальной обработки функции тут асинхронные
   actions: {
     fetchData({ commit }) {
-       return  new Promise((resolve, reject) => {
+       return  new Promise((resolve) => {
            setTimeout(() => {
             resolve(
                 [
@@ -50,12 +50,17 @@ export default new Vuex.Store({
                       category: "Housing",
                       price: 101,
                     },
+                    {
+                        date: "23.05.2021",
+                        category: "Food",
+                        price: 1200,
+                    },
                   ]
             )
-           }, 2000)
-           })
-           .then(res => {
+           }, 5000)
+           }).then(res => {
             commit('setPaymentsListData', res)
+           
        })
     }
   }

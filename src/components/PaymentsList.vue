@@ -13,7 +13,7 @@
       </tr>
 
       <!-- Элемент <td> создаёт ячейки таблицы, внутрь которых помещаются данные таблицы.  -->
-      <tr v-for="(item, index) in items" :key="index">
+      <tr v-for="(item, index) in getPaymentsList" :key="index">
         <td>{{ index + 1 }}</td>
         <td>{{ item.date }}</td>
         <td>{{ item.category }}</td>
@@ -24,17 +24,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  props: {
-    // расиширенный вариант записи props
-    items: {
-      type: Array,
-    },
-  },
   methods: {
     doSometing() {
       console.log(this.items);
     },
+  },
+  computed: {
+    ...mapGetters(["getPaymentsList"]),
   },
 };
 </script>
