@@ -28,36 +28,17 @@ export default new Vuex.Store({
     fetchData({ commit }) {
        return  new Promise((resolve) => {
            setTimeout(() => {
-            resolve(
-                [
-                    {
-                      date: "14.05.2021",
-                      category: "Education",
-                      price: 123,
-                    },
-                    {
-                      date: "11.05.2021",
-                      category: "Food",
-                      price: 456,
-                    },
-                    {
-                      date: "12.05.2021",
-                      category: "Fare",
-                      price: 112,
-                    },
-                    {
-                      date: "10.05.2021",
-                      category: "Housing",
-                      price: 101,
-                    },
-                    {
-                        date: "23.05.2021",
-                        category: "Food",
-                        price: 1200,
-                    },
-                  ]
-            )
-           }, 5000)
+            const items = [];
+            for(let i = 1; i < 95; i++) {
+              items.push({
+                serial: i,
+                date: "14.05.2021",
+                category: "Education",
+                price: i,
+              })
+            }
+            resolve(items)
+           }, 2000)
            }).then(res => {
             commit('setPaymentsListData', res)
            

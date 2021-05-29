@@ -3,7 +3,7 @@
     <div class="input-form">
       <input class="input-field" placeholder="Date" v-model="date" />
       <input class="input-field" placeholder="Category" v-model="category" />
-      <input class="input-field" placeholder="Price" v-model="price" />
+      <input class="input-field" placeholder="Price" v-model.number="price" />
     </div>
     <button class="show-btn" @click="save">Save</button>
   </div>
@@ -22,6 +22,7 @@ export default {
   // },
   data() {
     return {
+      serial: "",
       date: "",
       category: "",
       price: 0,
@@ -32,18 +33,21 @@ export default {
     ...mapMutations(["setPaymentsListData"]),
 
     save() {
-      const { date, category, price } = this;
-      let data = this.myList;
+      const { serial, date, category, price } = this;
+      // let data = this.myList;
       // this.$emit("add", { date, category, price });
       // this.setPaymentsListData([date, category, price]);
-      this.setPaymentsListData([...data, { date, category, price }]);
+      this.setPaymentsListData([
+        ...this.myList,
+        { serial, date, category, price },
+      ]);
     },
   },
   // computed: {
   //   ...mapGetters(["getPaymentsList"]),
   // },
   computed: mapState({
-    myList: (state) => state.paymentList,
+    myList: (state) => state.paymentsList,
   }),
 };
 </script>
