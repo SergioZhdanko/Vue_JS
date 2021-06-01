@@ -13,7 +13,7 @@
 import PaymentsList from "./components/PaymentsList"; // импорт компонента перечня расходов в главное приложение
 import PaymentForm from "./components/PaymentForm"; // импорт компонента формы в главное приложение
 import AddNewRecordButton from "./components/AddNewRecordButton"; // импорт компонента кнопки добавления в главное приложение
-import { mapActions } from "vuex";
+// import { mapActions } from "vuex";
 export default {
   name: "App",
   components: {
@@ -28,13 +28,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(["fetchData"]),
     // onDataAdded(data) {
     //   this.paymentsList.push(data);
     // },
-  },
-  mounted() {
-    this.fetchData();
   },
 };
 </script>

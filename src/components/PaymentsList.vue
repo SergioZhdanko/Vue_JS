@@ -11,23 +11,18 @@
 
       <!-- Элемент <td> создаёт ячейки таблицы, внутрь которых помещаются данные таблицы.  -->
       <tr v-for="(item, index) in currentElements" :key="index">
-        <td>{{ item.serial }}</td>
+        <td>{{ item.id }}</td>
         <td>{{ item.date }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.price }}</td>
       </tr>
     </table>
-    <Pagination
-      :length="getPaymentsList.length"
-      :n="n"
-      :cur="page"
-      @paginate="onPaginate"
-    />
+    <Pagination :length="12" :n="n" :cur="page" @paginate="onPaginate" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Pagination from "./Pagination";
 export default {
   components: {
@@ -36,16 +31,23 @@ export default {
   data() {
     return {
       page: 1,
-      n: 10,
+      n: 3,
     };
   },
   methods: {
+    ...mapActions({
+      fetchListData: "fetchData",
+    }),
     doSometing() {
       console.log(this.getPaymentsListFullPrice);
     },
     onPaginate(p) {
       this.page = p;
+      this.fetchListData(p);
     },
+  },
+  mounted() {
+    this.fetchListData(this.page);
   },
   computed: {
     ...mapGetters(["getPaymentsList"], ["getPaymentsListFullPrice"]),
