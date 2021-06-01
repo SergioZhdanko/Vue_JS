@@ -3,33 +3,52 @@
     <div class="input-form">
       <input class="input-field" placeholder="Date" v-model="date" />
       <input class="input-field" placeholder="Category" v-model="category" />
-      <input class="input-field" placeholder="Price" v-model="price" />
+      <input class="input-field" placeholder="Price" v-model.number="price" />
     </div>
     <button class="show-btn" @click="save">Save</button>
   </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { mapState } from "vuex";
+// import { mapGetters } from "vuex";
 export default {
-  props: {
-    // расиширенный вариант записи props
-    items: {
-      type: Array,
-    },
-  },
+  // props: {
+  //   // расиширенный вариант записи props
+  //   items: {
+  //     type: Array,
+  //   },
+  // },
   data() {
     return {
+      serial: "",
       date: "",
       category: "",
       price: 0,
     };
   },
+
   methods: {
+    ...mapMutations(["setPaymentsListData"]),
+
     save() {
-      const { date, category, price } = this;
-      this.$emit("add", { date, category, price });
+      const { serial, date, category, price } = this;
+      // let data = this.myList;
+      // this.$emit("add", { date, category, price });
+      // this.setPaymentsListData([date, category, price]);
+      this.setPaymentsListData([
+        ...this.myList,
+        { serial, date, category, price },
+      ]);
     },
   },
+  // computed: {
+  //   ...mapGetters(["getPaymentsList"]),
+  // },
+  computed: mapState({
+    myList: (state) => state.paymentsList,
+  }),
 };
 </script>
 

@@ -3,9 +3,8 @@
     <header :class="[$style.header]">My Personal Cost</header>
     <main>
       <AddNewRecordButton @clicked="isDisplay = !isDisplay" />
-      <PaymentForm @add="onDataAdded" v-if="isDisplay" />
-      <!-- передача в пропсы компонента массива paymentsList : это мv-bind -->
-      <PaymentsList :items="paymentsList" />
+      <PaymentForm v-if="isDisplay" />
+      <PaymentsList />
     </main>
   </div>
 </template>
@@ -14,6 +13,7 @@
 import PaymentsList from "./components/PaymentsList"; // импорт компонента перечня расходов в главное приложение
 import PaymentForm from "./components/PaymentForm"; // импорт компонента формы в главное приложение
 import AddNewRecordButton from "./components/AddNewRecordButton"; // импорт компонента кнопки добавления в главное приложение
+// import { mapActions } from "vuex";
 export default {
   name: "App",
   components: {
@@ -23,36 +23,14 @@ export default {
   },
   data() {
     return {
-      isDisplay: false,
-      paymentsList: [
-        {
-          date: "14.05.2021",
-          category: "Education",
-          price: 123,
-        },
-        {
-          date: "11.05.2021",
-          category: "Food",
-          price: 456,
-        },
-        {
-          date: "12.05.2021",
-          category: "Fare",
-          price: 112,
-        },
-        {
-          date: "10.05.2021",
-          category: "Housing",
-          price: 101,
-        },
-      ],
+      isDisplay: true,
     };
   },
 
   methods: {
-    onDataAdded(data) {
-      this.paymentsList.push(data);
-    },
+    // onDataAdded(data) {
+    //   this.paymentsList.push(data);
+    // },
   },
 };
 </script>
