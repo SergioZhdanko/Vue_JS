@@ -1,13 +1,13 @@
 <template>
   <div class="hello">
-    <input v-model.number="operand1" />
-    <input v-model.number="operand2" />
+    <input v-model="operand1" />
+    <input v-model="operand2" />
     = {{ result }}
     <div>
       <button v-for="op in operations" :key="op" @click="calcualte(op)">
         {{ op }}
       </button>
-      <button @click="(operand1 = 0), (operand2 = 0)">Clear</button><br />
+      <button @click="(operand1 = ''), (operand2 = '')">Clear</button><br />
     </div>
     <div class="error" v-if="error">
       {{ error }}
@@ -27,7 +27,7 @@
           name="button_group_1"
           id="radio1"
           value="1"
-          @click="(activeOperand = 1), (strOperand = '')"
+          @click="(activeOperand = 1), (operand1 = '')"
         />
         <label for="radio2" class="gender-selection__sel">Операнд 2</label>
         <input
@@ -35,7 +35,7 @@
           name="button_group_1"
           id="radio2"
           value="2"
-          @click="(activeOperand = 2), (strOperand = '')"
+          @click="(activeOperand = 2), (operand2 = '')"
         />
       </div>
     </div>
@@ -47,8 +47,8 @@ export default {
   data: () => ({
     operand: 0,
     strOperand: "",
-    operand1: 0,
-    operand2: 0,
+    operand1: "",
+    operand2: "",
     result: 0,
     operations: ["+", "-", "/", "*", "%", "^"],
     error: "",
@@ -62,11 +62,13 @@ export default {
 
   methods: {
     calcualte(op) {
-      const { operand1, operand2 } = this;
+      let { operand1, operand2 } = this;
       if (op === "/" && operand2 === 0) {
         this.error = "Division by zero!";
         return;
       }
+      operand1 = Number(operand1);
+      operand2 = Number(operand2);
       const calcOperation = {
         "+": () => operand1 + operand2,
         "-": () => operand1 - operand2,
@@ -79,26 +81,22 @@ export default {
     },
 
     addNumber(digit) {
-      this.strOperand += digit;
       if (this.activeOperand === 1) {
-        this.operand1 = parseInt(this.strOperand);
+        this.operand1 = this.operand1 + digit;
       } else {
-        this.operand2 = parseInt(this.strOperand);
+        this.operand2 = this.operand2 + digit;
       }
-
-      console.log(this.strOperand);
     },
 
     eraseLastDigit() {
       let backspacedStrOperand = "";
-      backspacedStrOperand = this.strOperand.slice(0, -1);
-      this.strOperand = backspacedStrOperand;
       if (this.activeOperand === 1) {
-        this.operand1 = parseInt(this.strOperand);
+        backspacedStrOperand = this.operand1.slice(0, -1);
+        this.operand1 = backspacedStrOperand;
       } else {
-        this.operand2 = parseInt(this.strOperand);
+        backspacedStrOperand = this.operand2.slice(0, -1);
+        this.operand2 = backspacedStrOperand;
       }
-      console.log(this.strOperand);
     },
   },
 };
