@@ -45,8 +45,6 @@
 <script>
 export default {
   data: () => ({
-    operand: 0,
-    strOperand: "",
     operand1: "",
     operand2: "",
     result: 0,
