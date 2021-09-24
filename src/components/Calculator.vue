@@ -2,16 +2,16 @@
   <div class="hello">
     <input v-model="operand1" />
     <input v-model="operand2" />
-    = {{ result }}
+    = {{ calculateResult }}
     <div>
-      <button v-for="op in operations" :key="op" @click="calcualte(op)">
+      <button v-for="op in operations" :key="op" @click="mathOperation = op">
         {{ op }}
       </button>
       <button @click="(operand1 = ''), (operand2 = '')">Clear</button><br />
     </div>
-    <div class="error" v-if="error">
+    <!-- <div class="error" v-if="error">
       {{ error }}
-    </div>
+    </div> -->
     <input type="checkbox" id="checkbox" v-model="isDisplay" />
     <label for="checkbox">Отобразить экранную клавиатуру</label>
     <div class="key-display" v-show="isDisplay">
@@ -47,7 +47,7 @@ export default {
   data: () => ({
     operand1: "",
     operand2: "",
-    result: 0,
+    mathOperation: "",
     operations: ["+", "-", "/", "*", "%", "^"],
     error: "",
     digits: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
@@ -59,25 +59,6 @@ export default {
   },
 
   methods: {
-    calcualte(op) {
-      let { operand1, operand2 } = this;
-      if (op === "/" && operand2 === 0) {
-        this.error = "Division by zero!";
-        return;
-      }
-      operand1 = Number(operand1);
-      operand2 = Number(operand2);
-      const calcOperation = {
-        "+": () => operand1 + operand2,
-        "-": () => operand1 - operand2,
-        "/": () => operand1 / operand2,
-        "*": () => operand1 * operand2,
-        "%": () => operand1 % operand2,
-        "^": () => Math.pow(operand1, operand2),
-      };
-      this.result = calcOperation[op]();
-    },
-
     addNumber(digit) {
       if (this.activeOperand === 1) {
         this.operand1 = this.operand1 + digit;
@@ -95,6 +76,28 @@ export default {
         backspacedStrOperand = this.operand2.slice(0, -1);
         this.operand2 = backspacedStrOperand;
       }
+    },
+  },
+
+  computed: {
+    calculateResult() {
+      const { operand1, operand2, mathOperation } = this;
+
+      // if (mathOperation === "/" && operand2 === 0) {
+      //   this.error = "Division by zero!";
+      //   return;
+      // }
+      const numOperand1 = Number(operand1);
+      const numOperand2 = Number(operand2);
+      const calcOperation = {
+        "+": () => numOperand1 + numOperand2,
+        "-": () => numOperand1 - numOperand2,
+        "/": () => numOperand1 / numOperand2,
+        "*": () => numOperand1 * numOperand2,
+        "%": () => numOperand1 % numOperand2,
+        "^": () => Math.pow(numOperand1, numOperand2),
+      };
+      return calcOperation[mathOperation]();
     },
   },
 };
